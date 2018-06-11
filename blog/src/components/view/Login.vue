@@ -111,12 +111,18 @@ export default {
   },
   methods: {
     // login
-    async handleLoginSubmit () {
-      let res = await resApi.accountLogin(this.userInfo.username, this.userInfo.password)
-      if (res) {
-        window.sessionStorage.setItem('token', 'tokens')
-        this.$router.push('/blogList')
-      }
+    handleLoginSubmit (name) {
+      this.$refs[name].validate(async (valid) => {
+        if (valid) {
+          let res = await resApi.accountLogin(this.userInfo.username, this.userInfo.password)
+          if (res && res.code === 200) {
+            window.sessionStorage.setItem('token', 'tokens')
+            this.$router.push('/blogList')
+          } else {
+            this.$Message.error('账号或密码错误')
+          }
+        }
+      })
     },
     // register
     handleRegisterSubmit () {
