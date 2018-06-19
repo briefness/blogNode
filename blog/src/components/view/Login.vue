@@ -57,6 +57,7 @@
 
 <script>
 import * as resApi from '@/service/fetchData'
+import MD5 from 'crypto-js/md5'
 const validateMobile = (rule, value, callback) => {
   let mobileReg = /^1[3|4|5|7|8][0-9]{9}$/
   if (value === '') {
@@ -114,7 +115,8 @@ export default {
     handleLoginSubmit (name) {
       this.$refs[name].validate(async (valid) => {
         if (valid) {
-          let res = await resApi.accountLogin(this.userInfo.username, this.userInfo.password)
+          let password = MD5(this.userInfo.password).toString()
+          let res = await resApi.accountLogin(this.userInfo.username, password)
           if (res && res.code === 200) {
             window.sessionStorage.setItem('token', res.data.token)
             window.sessionStorage.setItem('userId', res.data.userId)

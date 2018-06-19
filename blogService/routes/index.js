@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 // login
 router.post('/loginVerify', function(req, res, next) {
-  query('select * from user where username=?', [req.body.username], function(err, results, fields){
+  query('select * from user where username=? and password=?', [req.body.username, req.body.password], function(err, results, fields){
     if (err) {
       console.log(err.message);
       return;
