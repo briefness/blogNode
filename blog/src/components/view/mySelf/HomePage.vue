@@ -15,11 +15,11 @@
       <div class="info-content">
         <p class="name">{{authorInfo.name}}</p>
         <div class="info">
-          <p>{{authorInfo.attentionCount}}</p>
+          <p>{{authorInfo.articleCount}}</p>
           <p class="text">文章</p>
         </div>
         <div class="info">
-          <p>{{authorInfo.attentionCount}}</p>
+          <p>{{authorInfo.words}}</p>
           <p class="text">字数</p>
         </div>
       </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import * as resApi from '@/service/fetchData'
 import iPubishedBloglist from './PubishedBloglist'
 export default {
   name: 'HomePage',
@@ -48,12 +49,32 @@ export default {
         avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
         name: '我的名字',
         attentionCount: 0,
-        fansCount: 0
+        fansCount: 0,
+        words: 0,
+        articleCount: 0
       }
     }
   },
-  mounted () {},
-  methods: {}
+  mounted () {
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo () {
+      let userId = window.sessionStorage.getItem('userId')
+      let res = await resApi.getUserInfo(userId)
+      if (res && res.code === 200) {
+        console.log(window.sessionStorage.getItem('username'))
+        this.authorInfo.avatar = res.data.avatar
+        this.authorInfo.attentionCount = res.data.attentionCount
+        this.authorInfo.fansCount = res.data.fansCount
+        this.authorInfo.words = res.data.words
+        this.authorInfo.articleCount = res.data.articleCount
+        this.authorInfo.name = window.sessionStorage.getItem('username')
+      } else {
+        this.$router.push('/login')
+      }
+    }
+  }
 }
 </script>
 

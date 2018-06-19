@@ -1,5 +1,6 @@
 # blogPro
 使用 VUE 模仿 简书,数据服务使用Node.js
+数据库使用的mysql
 > mory
 
 

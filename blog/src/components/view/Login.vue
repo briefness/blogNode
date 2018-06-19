@@ -116,7 +116,9 @@ export default {
         if (valid) {
           let res = await resApi.accountLogin(this.userInfo.username, this.userInfo.password)
           if (res && res.code === 200) {
-            window.sessionStorage.setItem('token', 'tokens')
+            window.sessionStorage.setItem('token', res.data.token)
+            window.sessionStorage.setItem('userId', res.data.userId)
+            window.sessionStorage.setItem('username', res.data.username)
             this.$router.push('/blogList')
           } else {
             this.$Message.error('账号或密码错误')
