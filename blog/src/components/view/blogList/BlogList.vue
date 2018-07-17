@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import * as resApi from '@/service/fetchData'
 import RecommendCollection from './RecommendCollection'
 export default {
   name: 'BlogList',
@@ -53,34 +54,23 @@ export default {
           pageView: 1000,
           reply: 10000,
           like: 10
-        },
-        {
-          avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
-          userName: '用户名',
-          publishTime: '05.08 08:45',
-          blogTitle: '文章标题',
-          blogContent: '限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示...',
-          relatedImg: 'http://upload-images.jianshu.io/upload_images/4810847-84c483151ca77460.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240',
-          pageView: 1000,
-          reply: 10000,
-          like: 10
-        },
-        {
-          avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
-          userName: '用户名',
-          publishTime: '05.08 08:45',
-          blogTitle: '文章标题',
-          blogContent: '限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示...',
-          relatedImg: '',
-          pageView: 1000,
-          reply: 10000,
-          like: 10
         }
       ]
     }
   },
-  mounted () {},
+  mounted () {
+    this.getBlogList()
+  },
   methods: {
+    async getBlogList () {
+      let res = await resApi.getBlogList()
+      if (res && res.code === 200) {
+        res.data.forEach((item, index) => {
+          console.log(new Date(item.publishTime).toLocaleString())
+        })
+        this.blogList = res.data
+      }
+    },
     // 阅读更多
     loadMore () {
       this.loading = true

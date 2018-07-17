@@ -44,4 +44,56 @@ router.post('/get_userInfo', function(req, res, next) {
   })
 });
 
+// get blogList
+router.get('/get_blogList', function(req, res, next) {
+  query('select * from article, user where user.userId=article.userId', function(err, results, fields){
+    if (err) {
+      console.log(err.message);
+      return;
+    }
+    if (results && results.length > 0) {
+      let logList = [];
+      results.forEach((currentValue, index) => {
+
+        console.log(currentValue);
+        let data = {
+          'articleId': currentValue.articleId,
+          'avatar': currentValue.avatar,
+          'userName': currentValue.username,
+          'publishTime': currentValue.release_time,
+          'blogTitle': currentValue.title,
+          'relatedImg': currentValue.related_img,
+          'pageView': currentValue.preview_count,
+          'reply': currentValue.commnet_count,
+          'like': currentValue.like_count
+        };
+        let content = currentValue.thumbnail_article.toString();
+        data.blogContent = content.substring(0, 116) + '...';
+        logList.push(data);
+      })
+      res.json({'code': 200, 'data': logList});
+    } else {
+      res.json({'code': 201, 'res': '获取博客列表失败'});
+    }
+  })
+});
+
+// publish blog
+router.post('/publish_blog', function(req, res, next) {
+  console.log(req.body);
+  let sql = 'INSERT INTO article(userId,title,content,related_img,thumbnail_article,release_time,preview_count,commnet_count,like_count) VALUES(?,?,?,?,?,?,?,?,?)';
+  let data = [req.body.userId, req.body.title, req.body.content, req.body.relatedImg, req.body.thumbnailArticle, req.body.publishTime, 0, 0, 0];
+  query(sql, data, function(err, results, fields){
+    if (err) {
+      console.log(err.message);
+      return;
+    }
+    if (results) {
+      res.json({'code': 200, 'message': '发布成功'});
+    } else {
+      res.json({'code': 201, 'message': '发布失败'});
+    }
+  })
+});
+
 module.exports = router;

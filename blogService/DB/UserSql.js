@@ -9,6 +9,7 @@ var query = function(sql, options, callback){
             callback(err, null, null);
         }else{
             conn.query(sql, options, function(err, results, fields){
+                console.log(results);
                 //释放连接
                 conn.release();
                 //事件驱动回调
