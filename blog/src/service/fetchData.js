@@ -21,6 +21,11 @@ export const getUserInfo = (userId) => http.post('/get_userInfo', {userId})
 export const getBlogList = () => http.get('/get_blogList')
 
 /**
+ * 搜索博客
+ */
+export const searchBlog = (keywords) => http.post('/blog/search', {keywords})
+
+/**
  * 获取博客详情
  */
 export const getBlogInfo = (articleId) => http.post('/get_blog_detailInfo', {articleId})

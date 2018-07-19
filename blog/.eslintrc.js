@@ -21,6 +21,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'no-useless-escape': 'off',
     // allow async-await
     'generator-star-spacing': 'off',
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],

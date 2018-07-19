@@ -52,7 +52,9 @@ router.post('/loginVerify', function(req, res, next) {
       return;
     }
     res.writeHead(200);
-    if (results) {
+    console.log(results);
+
+    if (results && results.length > 0) {
       let data = { 'username': results[0].username, 'userId': results[0].userId, 'token': results[0].token};
       res.end(JSON.stringify({'data': data}));
     } else {
@@ -135,7 +137,6 @@ router.get('/get_blogList', function(req, res, next) {
 
 // publish blog
 router.post('/publish_blog', function(req, res, next) {
-  console.log(req.body);
   let sql = 'INSERT INTO article(userId,title,content,related_img,thumbnail_article,release_time,preview_count,commnet_count,like_count) VALUES(?,?,?,?,?,?,?,?,?)';
   let data = [req.body.userId, req.body.title, req.body.content, req.body.relatedImg, req.body.thumbnailArticle, req.body.publishTime, 0, 0, 0];
   query(sql, data, function(err, results, fields){
@@ -155,6 +156,55 @@ router.post('/publish_blog', function(req, res, next) {
     console.log('-----------------发布完成------------------');
     console.log('-----------------发布状态: ');
     console.log(message.message);
+  })
+});
+
+// search blog
+router.post('/blog/search', function(req, res, next) {
+  let keywords = req.body.keywords.split(' ');
+  let sqlStn = "select * from article, user where user.userId=article.userId ";
+
+  keywords.forEach((key, index) => {
+    sqlStn.append("or thumbnail_article like '%"+ key +"%' ");
+  })
+  query(sqlStn, [], function(err, results, fields){
+    console.log('-----------------开始搜索------------------');
+    if (err) {
+      console.log(err.message);
+      res.writeHead(404);
+      res.end(err.message);
+      return;
+    }
+    res.writeHead(200);
+    if (results && results.length > 0) {
+      let logList = [];
+      results.forEach((currentValue, index) => {
+
+        let data = {
+          'articleId': currentValue.articleId,
+          'avatar': currentValue.avatar,
+          'userName': currentValue.username,
+          'publishTime': currentValue.release_time,
+          'blogTitle': currentValue.title,
+          'blogContent': currentValue.thumbnail_article,
+          'relatedImg': currentValue.related_img,
+          'pageView': currentValue.preview_count,
+          'reply': currentValue.commnet_count,
+          'like': currentValue.like_count
+        };
+        let content = currentValue.thumbnail_article.toString();
+        if (content.length > 116) {
+          data.blogContent = content.substring(0, 116) + '...';
+        }
+        logList.push(data);
+      })
+      res.end(JSON.stringify({'data': logList}));
+    } else {
+      res.end(JSON.stringify({'message': '当前并无文章'}));
+    }
+    console.log('-----------------搜索完成------------------');
+    console.log('-----------------博客列表: ' );
+    console.log(results ? results : '当前并无文章');
   })
 });
 

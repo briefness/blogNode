@@ -68,7 +68,7 @@ export default {
       if (res && res.data) {
         this.blogList = res.data
       } else {
-        this.$Message.warning(res.message)
+        this.$Message.warning('暂无文章')
       }
     },
     // 阅读更多 （ADD:暂未实现）
