@@ -117,13 +117,13 @@ export default {
         if (valid) {
           let password = MD5(this.userInfo.password).toString()
           let res = await resApi.accountLogin(this.userInfo.username, password)
-          if (res && res.code === 200) {
+          if (res && res.data) {
             window.sessionStorage.setItem('token', res.data.token)
             window.sessionStorage.setItem('userId', res.data.userId)
             window.sessionStorage.setItem('username', res.data.username)
             this.$router.push('/blogList')
           } else {
-            this.$Message.error('账号或密码错误')
+            this.$Message.error(res.message)
           }
         }
       })

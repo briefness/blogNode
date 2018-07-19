@@ -47,6 +47,23 @@ function checkCode (res) {
 }
 
 export default {
+  imgPost (url, data) {
+    return axios({
+      method: 'post',
+      baseURL: global_.httpUrl,
+      url,
+      data: data,
+      timeout: 10000
+    }).then(
+      (response) => {
+        return checkStatus(response)
+      }
+    ).then(
+      (res) => {
+        return checkCode(res)
+      }
+    )
+  },
   post (url, data) {
     return axios({
       method: 'post',

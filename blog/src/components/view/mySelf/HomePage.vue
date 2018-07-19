@@ -62,8 +62,7 @@ export default {
     async getUserInfo () {
       let userId = window.sessionStorage.getItem('userId')
       let res = await resApi.getUserInfo(userId)
-      if (res && res.code === 200) {
-        console.log(window.sessionStorage.getItem('username'))
+      if (res && res.data) {
         this.authorInfo.avatar = res.data.avatar
         this.authorInfo.attentionCount = res.data.attentionCount
         this.authorInfo.fansCount = res.data.fansCount

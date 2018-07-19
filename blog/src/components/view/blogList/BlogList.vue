@@ -62,16 +62,16 @@ export default {
     this.getBlogList()
   },
   methods: {
+    // 获取文章列表
     async getBlogList () {
       let res = await resApi.getBlogList()
-      if (res && res.code === 200) {
-        res.data.forEach((item, index) => {
-          console.log(new Date(item.publishTime).toLocaleString())
-        })
+      if (res && res.data) {
         this.blogList = res.data
+      } else {
+        this.$Message.warning(res.message)
       }
     },
-    // 阅读更多
+    // 阅读更多 （ADD:暂未实现）
     loadMore () {
       this.loading = true
       let loadingAction = setInterval(() => {

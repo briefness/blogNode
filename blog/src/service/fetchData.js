@@ -1,6 +1,11 @@
 import http from '../config/http'
 
 /**
+ * 上传图片
+ */
+export const uploadImg = (image) => http.imgPost('/upload_images', image)
+
+/**
  * 账号密码登录
  */
 export const accountLogin = (username, password) => http.post('/loginVerify', {username, password})
