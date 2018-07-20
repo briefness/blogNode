@@ -20,7 +20,7 @@
                </Input>
            </FormItem>
             <FormItem prop="password">
-                <Input type="password" size="large" placeholder="密码" v-model="userInfo.password">
+                <Input type="password" size="large" placeholder="密码" v-model="userInfo.password" @on-enter="handleLoginSubmit('userInfo')">
                   <Icon type="ios-locked-outline" slot="prepend"></Icon>
                 </Input>
             </FormItem>

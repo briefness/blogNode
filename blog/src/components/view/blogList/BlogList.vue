@@ -35,6 +35,7 @@
 <script>
 import * as resApi from '@/service/fetchData'
 import RecommendCollection from './RecommendCollection'
+import {mapGetters} from 'vuex'
 export default {
   name: 'BlogList',
   components: {
@@ -58,10 +59,19 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters(['getSearchBlogList'])
+  },
+  watch: {
+    'getSearchBlogList': 'reSetBlogList'
+  },
   mounted () {
     this.getBlogList()
   },
   methods: {
+    reSetBlogList () {
+      this.blogList = this.getSearchBlogList
+    },
     // 获取文章列表
     async getBlogList () {
       let res = await resApi.getBlogList()

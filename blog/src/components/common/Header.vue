@@ -44,6 +44,7 @@
 
 <script>
 import utils_ from '@/tool/Utils'
+import {mapActions} from 'vuex'
 export default {
   name: 'Header',
   data () {
@@ -63,8 +64,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getBlogListAction: 'searchBlog'
+    }),
     // 搜索(包括回车搜索和点击搜索图标搜索)
     searchInfo () {
+      this.getBlogListAction(this.headerSearch)
     },
     selectMenu (name) {
       this.$router.push(name)
