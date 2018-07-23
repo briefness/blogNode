@@ -121,6 +121,7 @@ export default {
             window.sessionStorage.setItem('token', res.data.token)
             window.sessionStorage.setItem('userId', res.data.userId)
             window.sessionStorage.setItem('username', res.data.username)
+            window.sessionStorage.setItem('avatar', res.data.avatar)
             this.$router.push('/blogList')
           } else {
             this.$Message.error(res.message)

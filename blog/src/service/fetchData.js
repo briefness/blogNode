@@ -28,7 +28,18 @@ export const searchBlog = (keywords) => http.post('/blog/search', {keywords})
 /**
  * 获取博客详情
  */
-export const getBlogInfo = (articleId) => http.post('/get_blog_detailInfo', {articleId})
+export const getBlogInfo = (articleId) => http.post('/blog/blog_detail', {articleId})
+
+/**
+ * 获取博客评论列表
+ */
+export const getBlogCommentList = (articleId) => http.post('/blog/blog_comment', {articleId})
+
+/**
+ * 发表评论
+ */
+export const publishComment = (articleId, criticsId, commentContent, commentTime) =>
+  http.post('/blog/publish_comment', {articleId, criticsId, commentContent, commentTime})
 
 /**
  * 发布博客

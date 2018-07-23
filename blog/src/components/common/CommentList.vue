@@ -2,7 +2,7 @@
   <div class="comment-list">
     <div class="top-title">
       <div class="pull-left">
-        <span>{{commentCount}}条评论</span>
+        <span>{{commentList.length}}条评论</span>
         <a class="author-only" @click="justLookAuthor">只看作者</a>
       </div>
       <div class="pull-right">
@@ -10,25 +10,25 @@
         <a @click="timeInverted">按时间倒序</a>
       </div>
     </div>
-    <div class="comment">
+    <div class="comment" v-for="(comment, index) in commentList" :key="index">
       <div class="author">
         <div class="v-tooltip-container" style="z-index: 0;">
-          <Avatar class="avatar" :src="authorInfo.avatar" />
+          <Avatar class="avatar" :src="comment.avatar" />
         </div>
         <div class="info">
-          <span class="name">{{authorInfo.userName}}</span>
+          <span class="name">{{comment.userName}}</span>
           <div class="meta">
-            <span>{{meta.publishTime}}</span>
+            <span>{{comment.publishTime}}</span>
           </div>
         </div>
       </div>
       <div class="comment-wrap">
-        <p>{{meta.comment}}</p>
+        <p>{{comment.comment}}</p>
         <div class="tool-group">
           <a :class="{'like-button' : isLike, 'like-button liked': !isLike}" @click="likeComment">
             <Icon type="ios-lightbulb-outline" v-if="isLike" class="afflatus"></Icon>
             <Icon type="ios-lightbulb" v-if="!isLike" class="afflatus my-afflatus"></Icon>
-            <span>{{meta.like}}人赞</span>
+            <span>{{comment.likes}}人赞</span>
           </a>
         </div>
       </div>
@@ -40,6 +40,11 @@
 <script>
 export default {
   name: 'CommentList',
+  props: {
+    commentList: {
+      default: 'commentList'
+    }
+  },
   data () {
     return {
       isLike: true,

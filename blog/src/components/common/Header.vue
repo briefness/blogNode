@@ -11,7 +11,7 @@
             关于我
         </MenuItem> -->
     </Menu>
-    <Input v-model="headerSearch" icon="ios-search-strong" placeholder="搜索" @on-click="searchInfo" @on-enter="searchInfo" class="header-search-input"></Input>
+    <Input v-if="isShowSearchInput" v-model="headerSearch" icon="ios-search-strong" placeholder="搜索" @on-click="searchInfo" @on-enter="searchInfo" class="header-search-input"></Input>
     <div v-if="!isLogin">
       <Button type="text" class="login-btn action" @click="toLogin">登录</Button>
       <Button type="text" class="register-btn action" @click="toRegister">注册</Button>
@@ -49,6 +49,7 @@ export default {
   name: 'Header',
   data () {
     return {
+      isShowSearchInput: false,
       informationCount: 1,
       avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
       isLogin: false,
@@ -56,9 +57,14 @@ export default {
       activeMenu: '/' + utils_.getRouteName(this.$route.path, 1) + '/' + utils_.getRouteName(this.$route.path, 2)
     }
   },
+  watch: {
+    '$route.path': 'getIsBlogList'
+  },
   mounted () {
     if (window.sessionStorage.getItem('token')) {
       this.isLogin = true
+      this.getIsBlogList()
+      this.avatar = window.sessionStorage.getItem('avatar')
     } else {
       this.$router.push({'name': 'Login', 'params': {'isLogin': true}})
     }
@@ -67,6 +73,13 @@ export default {
     ...mapActions({
       getBlogListAction: 'searchBlog'
     }),
+    getIsBlogList () {
+      if (this.$route.path === '/blogList' || this.$route.path === '/blogList/') {
+        this.isShowSearchInput = true
+      } else {
+        this.isShowSearchInput = false
+      }
+    },
     // 搜索(包括回车搜索和点击搜索图标搜索)
     searchInfo () {
       this.getBlogListAction(this.headerSearch)

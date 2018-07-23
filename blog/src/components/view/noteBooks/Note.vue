@@ -1,6 +1,6 @@
 <template>
   <div class="write-note">
-    <Input v-model="title" placeholder="无标题文章" class="note-title"></Input>
+    <Input v-model="title" placeholder="无标题文章" @keyup.native="limitImput" class="note-title"></Input>
     <mavon-editor ref="md" :ishljs="true" v-model="note" @imgAdd="imgAdd" @save="saveNote"/>
     <Button icon="paper-airplane" type="text" class="publish-btn" @click="publishBlog">发布</Button>
   </div>
@@ -25,6 +25,9 @@ export default {
     this.userId = window.sessionStorage.getItem('userId')
   },
   methods: {
+    limitImput () {
+      this.title = this.title.replace(/[^\u4E00-\u9FA5-Za-z]/g, '')
+    },
     // 绑定@imgAdd event
     async imgAdd (pos, file) {
       // 第一步.将图片上传到服务器.
@@ -55,9 +58,12 @@ export default {
     saveNote (value, render) {
       this.render = render
       if (render) {
+        // 匹配所有的img标签，返回img标签数组
         let imgStr = render.match(/<img[^>]+>/g)
-        let data = render
-        let pattern = new RegExp('<p.*?>(.*?)</p>', 'i')
+        // 清除换行符
+        let data = render.replace(/[\r\n]/g, '')
+        // 获取p标签里的内容
+        let pattern = new RegExp('<p.*?>(.*?)<\/p>', 'i')
         this.thumbnailArticle = data.match(pattern)[1]
         if (imgStr) {
           this.relatedImg = imgStr[0].match(/src=[\'\"]?([^\'\"]*)[\'\"]?/i)[1]
@@ -65,7 +71,7 @@ export default {
             if (index === 0) {
               this.thumbnailArticle = data.substring(3, data.indexOf(item))
             }
-            data = data.replace(item, '')
+            // data = data.replace(item, ' ')
           })
         }
         if (!this.title) {

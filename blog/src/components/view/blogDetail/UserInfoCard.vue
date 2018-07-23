@@ -1,20 +1,20 @@
 <template>
   <div class="user-info-card">
     <router-link to="/blogDetail" class="banner">
-      <img v-lazy="userInfo.avatar" />
+      <img v-lazy="authorInfo.avatar" />
     </router-link>
     <div class="info">
       <router-link to="/blogDetail" class="name">
-        {{userInfo.userName}}
+        {{authorInfo.name}}
       </router-link>
-      <Icon type="female" v-if="userInfo.sex===1"></Icon>
+      <Icon type="female" v-if="authorInfo.sex===1"></Icon>
       <Icon type="male" v-else></Icon>
       <div class="meta">
         <span>{{meta.wordCount}}万字 ·</span>
         <span>{{meta.pageview}}万阅读 ·</span>
         <span>{{meta.attentionCount}}人关注</span>
       </div>
-      <Button type="primary" shape="circle" icon="android-add">加入圈子</Button>
+      <Button type="primary" shape="circle" icon="android-add" @click="addCircleCard">加入圈子</Button>
     </div>
   </div>
 </template>
@@ -22,18 +22,27 @@
 <script>
 export default {
   name: 'UserInfoCard',
+  props: {
+    authorInfo: {
+      default: 'authorInfo'
+    },
+    addCircle: {
+      default: 'addCircle'
+    }
+  },
   data () {
     return {
-      userInfo: {
-        avatar: 'http://upload.jianshu.io/book/image/57592c95-2d41-4aea-a3f2-5ae09df626ef.png',
-        userName: '我的名字',
-        sex: 0 // 1 代表男，0 代表女
-      },
       meta: {
         wordCount: 100,
         pageview: 100,
         attentionCount: 1000
       }
+    }
+  },
+  mounted () {},
+  methods: {
+    addCircleCard () {
+      this.$emit('addCircle')
     }
   }
 }

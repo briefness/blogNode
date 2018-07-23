@@ -8,17 +8,17 @@
           <span>{{blog.userName}}</span>
           <span class="publish-time">{{blog.publishTime}}</span>
         </p>
-        <router-link to="/blogDetail" class="blog-title">{{blog.blogTitle}}</router-link>
+        <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}" class="blog-title">{{blog.blogTitle}}</router-link>
         <p class="blog-content">
           {{blog.blogContent}}
         </p>
         <p class="meta">
-          <router-link to="/blogDetail"><Icon type="eye"></Icon>{{blog.pageView}}</router-link>
-          <router-link to="/blogDetail"><Icon type="chatbox"></Icon>{{blog.reply}}</router-link>
+          <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}"><Icon type="eye"></Icon>{{blog.pageView}}</router-link>
+          <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}"><Icon type="chatbox"></Icon>{{blog.reply}}</router-link>
           <Icon type="heart"></Icon>{{blog.like}}
         </p>
       </div>
-      <router-link to="/blogDetail" v-if="blog.relatedImg">
+      <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}" v-if="blog.relatedImg">
         <img v-lazy="blog.relatedImg" class="img-blur-done" />
       </router-link>
     </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="comment-area-input">
     <div class="new-comment">
-      <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" class="avatar" />
-      <textarea v-model="commentInfo.comment" placeholder="写下你的评论..." @focus="getFocusSwitchShowAction"></textarea>
+      <Avatar :src="avatar" size="large" class="avatar" />
+      <Input v-model="comment" type="textarea" :autosize="{minRows: 4}" @keyup.native="limitSpace" @on-focus="getFocusSwitchShowAction" placeholder="写下你的评论..."></Input>
       <div class="write-function-block" v-if="showAction">
         <div class="hint">Ctrl+Enter 发表</div>
         <a class="btn btn-send" @click="sendComment">发送</a>
@@ -13,29 +13,56 @@
 </template>
 
 <script>
+import * as resApi from '@/service/fetchData'
 import utils_ from '@/tool/Utils'
 export default {
   name: 'CommentInput',
-  data () {
-    return {
-      showAction: false,
-      commentInfo: {
-        comment: ''
-      }
+  props: {
+    articleId: {
+      default: 'articleId'
+    },
+    authorInfo: {
+      default: 'authorInfo'
+    },
+    getBlogCommentList: {
+      default: 'getBlogCommentList'
     }
   },
-  mounted () {},
+  data () {
+    return {
+      avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
+      showAction: false,
+      comment: ''
+    }
+  },
+  mounted () {
+    this.avatar = window.sessionStorage.getItem('avatar')
+  },
   methods: {
+    limitSpace () {
+      this.comment = this.comment.replace(/^ +| +$/g, '')
+    },
     // textarea获取焦点事件
     getFocusSwitchShowAction () {
       this.showAction = true
     },
     // 发送评论
     sendComment () {
-      if (utils_.stringIsNull(this.commentInfo.comment)) {
+      if (utils_.stringIsNull(this.comment)) {
         this.$Message.warning('回复内容不能为空')
       } else {
+        this.publishComment()
+      }
+    },
+    async publishComment () {
+      let res = await resApi.publishComment(this.articleId, this.authorInfo.userId, this.comment, utils_.getCurrentTime())
+      if (res && res.state) {
+        this.$emit('getBlogCommentList')
         this.showAction = false
+        this.comment = ''
+        this.$Message.success(res.message)
+      } else {
+        this.$Message.error(res.message)
       }
     },
     // 取消评论

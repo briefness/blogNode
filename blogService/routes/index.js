@@ -62,7 +62,7 @@ router.post('/loginVerify', function(req, res, next) {
     try {
       res.writeHead(200);
       if (results && results.length > 0) {
-        let data = { 'username': results[0].username, 'userId': results[0].userId, 'token': results[0].token};
+        let data = { 'avatar': results[0].avatar, 'username': results[0].username, 'userId': results[0].userId, 'token': results[0].token};
         res.end(JSON.stringify({'data': data}));
       } else {
         res.end(JSON.stringify({'message': '账号或密码不正确'}));
@@ -78,7 +78,7 @@ router.post('/loginVerify', function(req, res, next) {
 });
 // get userInfo
 router.post('/get_userInfo', function(req, res, next) {
-  logger,info('开始获取个人信息');
+  logger.info('开始获取个人信息');
   query('select * from userInfo where userId=?', [req.body.userId], function(err, results, fields){
     if (err) {
       logger.error(err.message);
@@ -175,7 +175,8 @@ router.post('/publish_blog', function(req, res, next) {
         message = {'code': 2000001, 'message': '发布失败'};;
       }
       res.end(JSON.stringify(message));
-      logger.info(message.message)
+      logger.info(results);
+      logger.info(message.message);
     } catch (e) {
       logger.error(e.message);
       logger.info(e.message);
@@ -237,6 +238,105 @@ router.post('/blog/search', function(req, res, next) {
       logger.error(e.message);
       logger.info(e.message);
       logger.info('搜索博客失败');
+    }
+  })
+});
+
+// get blog detail
+router.post('/blog/blog_detail', function(req, res, next) {
+  logger.info('开始获取博客详情');
+  query('select * from article, userInfo where userInfo.userId=article.userId and articleId=?', [req.body.articleId], function(err, results, fields){
+    if (err) {
+      logger.error(err.message);
+      res.writeHead(404);
+      res.end(err.message);
+      return;
+    }
+    try {
+      res.writeHead(200);
+      if (results) {
+        let data = {
+          'blogContentHtml': results[0].content,
+          'title': results[0].title,
+          'userName': results[0].username,
+          'publishTime': results[0].release_time,
+          'sex': results[0].sex,
+          'avatar': results[0].avatar,
+          'likes': results[0].like_count
+        };
+        logger.info('博客详情信息：', data);
+        res.end(JSON.stringify({'data': data}));
+      }
+      logger.info('获取博客详情完成');
+    } catch (e) {
+      logger.error(e.message);
+      logger.info(e.message);
+      logger.info('获取博客详情失败');
+    }
+  })
+});
+
+// get publish comment
+router.post('/blog/publish_comment', function(req, res, next) {
+  logger.info('开始发表博客评论');
+  let reqData = [req.body.articleId, req.body.criticsId, req.body.commentContent, req.body.commentTime, 0]
+  query('INSERT INTO userComment(articleId,criticsId,comment_content,comment_time,comment_likes) VALUES(?,?,?,?,?)', reqData, function(err, results, fields){
+    if (err) {
+      logger.error(err.message);
+      res.writeHead(404);
+      res.end(err.message);
+      return;
+    }
+    try {
+      res.writeHead(200);
+      if (results) {
+        res.end(JSON.stringify({'message': '发表成功', 'state': true}));
+      } else {
+        res.end(JSON.stringify({'message': '发表失败', 'state': false}));
+      }
+      logger.info('发布博客评论信息：', results);
+      logger.info('发表博客评论完成');
+    } catch (e) {
+      logger.error(e.message);
+      logger.info(e.message);
+      logger.info('发表博客评论失败');
+    }
+  })
+});
+
+// get blog comment
+router.post('/blog/blog_comment', function(req, res, next) {
+  logger.info('开始获取博客评论');
+  query('select * from userInfo, userComment where userInfo.userId=userComment.criticsId and articleId=?', [req.body.articleId], function(err, results, fields){
+    if (err) {
+      logger.error(err.message);
+      res.writeHead(404);
+      res.end(err.message);
+      return;
+    }
+    try {
+      res.writeHead(200);
+      if (results) {
+        let commentList = [];
+        results.forEach((currentValue, index) => {
+          let data = {
+            'commentId': currentValue.commentId,
+            'comment': currentValue.comment_content,
+            'userName': currentValue.username,
+            'publishTime': currentValue.comment_time,
+            'avatar': currentValue.avatar,
+            'likes': currentValue.comment_likes
+          };
+          commentList.unshift(data);
+        })
+        logger.info('博客评论信息：', commentList);
+        res.end(JSON.stringify({'data': commentList}));
+      }
+      logger.info('获取博客评论完成');
+    } catch (e) {
+      logger.error(e.message);
+      logger.info(e.message);
+      logger.info('获取博客评论失败');
     }
   })
 });

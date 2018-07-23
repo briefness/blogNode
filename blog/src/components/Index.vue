@@ -21,6 +21,10 @@ export default {
   data () {
     return {
     }
+  },
+  updated () {
+    // 定位在顶部，每次页面显示
+    window.scroll(0, 0)
   }
 }
 </script>

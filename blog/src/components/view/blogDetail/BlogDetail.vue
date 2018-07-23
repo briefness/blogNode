@@ -1,12 +1,12 @@
 <template>
   <div class="blog-detail-info">
     <div class="blog-info">
-      <p class="title">文章标题</p>
+      <p class="title">{{meta.title}}</p>
       <div class="author">
         <img v-lazy="authorInfo.avatar" />
         <div class="info">
           <span class="name">{{authorInfo.name}}</span>
-          <Button type="primary" shape="circle" size="small">
+          <Button type="primary" shape="circle" size="small" @click="addCircle">
             <Icon type="android-add"></Icon>
             加入圈子
           </Button>
@@ -16,7 +16,6 @@
             <span>阅读 {{meta.viewsCount}}</span>
             <span>评论 {{meta.commentsCount}}</span>
             <span>喜欢 {{meta.likesCount}}</span>
-            <span>赞赏 {{meta.rewardsCount}}</span>
           </div>
         </div>
       </div>
@@ -26,7 +25,7 @@
       <p>你来，已是清风拂面</p>
       <!-- <Button type="primary" @click="supportAuthor">赞赏支持</Button> -->
     </div>
-    <UserInfoCard></UserInfoCard>
+    <UserInfoCard :authorInfo="authorInfo" @addCircle="addCircle"></UserInfoCard>
     <div class="meta-bottom">
       <div :class="{'like' : isLike, 'like liked': !isLike}">
         <div class="btn-like" @click="likeThisArticle">
@@ -39,12 +38,13 @@
         </div>
       </div>
     </div>
-    <CommentInput></CommentInput>
-    <CommentList></CommentList>
+    <CommentInput :articleId="articleId" :authorInfo="authorInfo" @getBlogCommentList="getBlogCommentList"></CommentInput>
+    <CommentList :commentList="commentList"></CommentList>
   </div>
 </template>
 
 <script>
+import * as resApi from '@/service/fetchData'
 import UserInfoCard from './UserInfoCard'
 import CommentInput from '@/components/common/CommentInput'
 import CommentList from '@/components/common/CommentList'
@@ -57,37 +57,70 @@ export default {
   },
   data () {
     return {
+      articleId: '',
       isLike: true,
       authorInfo: {
+        userId: '',
         avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
-        name: '我的名字'
+        name: '我的名字',
+        sex: 0
       },
       meta: {
+        title: '无标题文章',
         publishTime: '2018.05.12 08:22',
         wordage: 1000,
         viewsCount: 1000,
         commentsCount: 1000,
         likesCount: 1000,
-        rewardsCount: 3,
         likes: 419
       },
-      blogContentHtml: '<p>我都是金佛山的附件soID金佛山的</p><img src="//upload-images.jianshu.io/upload_images/9215795-4a96efa0165df0bc.jpg" width="110%" style="margin-left: -5%;" />'
+      commentList: [],
+      blogContentHtml: '<p>我都是金佛山的附件soID金佛山的</p><img src="//upload-images.jianshu.io/upload_images/9215795-4a96efa0165df0bc.jpg" />'
     }
   },
-  mounted () {},
+  mounted () {
+    this.articleId = this.$route.query.articleId
+    this.authorInfo.userId = window.sessionStorage.getItem('userId')
+    this.getDetailBlog()
+    this.getBlogCommentList()
+  },
   methods: {
+    // 获取博客详情信息
+    async getDetailBlog () {
+      let res = await resApi.getBlogInfo(this.articleId)
+      if (res) {
+        this.blogContentHtml = res.data.blogContentHtml
+        this.meta.title = res.data.title
+        this.meta.publishTime = res.data.publishTime
+        this.meta.likes = res.data.likes
+        this.authorInfo.avatar = res.data.avatar
+        this.authorInfo.name = res.data.userName
+        this.authorInfo.sex = res.data.sex
+      }
+    },
+    // 获取博客评论列表
+    async getBlogCommentList () {
+      let res = await resApi.getBlogCommentList(this.articleId)
+      if (res && res.data.length > 0) {
+        this.commentList = res.data
+      }
+    },
     // 支持作者
     // supportAuthor () {},
     // 喜欢这篇文章
     likeThisArticle () {
       this.isLike = !this.isLike
+    },
+    // 加入圈子，相当于加关注
+    addCircle () {
+      this.$Message.info('暂不提供此功能')
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 @import '~assets/less/common.less';
 
 .blog-detail-info {
@@ -96,6 +129,11 @@ export default {
 }
 .blog-detail-info .show-content {
   font-size: 16px;
+  width: 100%;
+}
+.blog-detail-info .show-content img {
+  width: 110%!important;
+  margin-left: -5%;
 }
 .blog-detail-info .title {
   margin-top: 20px;

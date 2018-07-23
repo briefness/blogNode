@@ -1,2 +1,20 @@
-{"name":"website name","hostname":"DESKTOP-3R20VLF","pid":4136,"level":50,"msg":"data is not defined","time":"2018-07-20T07:40:45.434Z","v":0}
-{"name":"website name","hostname":"DESKTOP-3R20VLF","pid":4136,"level":50,"msg":"data is not defined","time":"2018-07-20T07:41:02.420Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1030,"level":50,"msg":"data is not defined","time":"2018-07-23T02:32:12.606Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1030,"level":50,"msg":"data is not defined","time":"2018-07-23T02:32:18.137Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1215,"level":50,"msg":"data is not defined","time":"2018-07-23T03:22:45.060Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1215,"level":50,"msg":"data is not defined","time":"2018-07-23T03:34:29.375Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1370,"level":50,"msg":"data is not defined","time":"2018-07-23T03:35:10.738Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T05:50:44.324Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T06:22:14.272Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T06:22:58.880Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2002,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:28:14.298Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2015,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:29:11.611Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2015,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:29:21.850Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2024,"level":50,"msg":"data is not defined","time":"2018-07-23T06:31:34.396Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2327,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:32:39.133Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2327,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:34:32.337Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:36:30.765Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:36:44.086Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:40:01.301Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2387,"level":50,"msg":"ER_BAD_FIELD_ERROR: Unknown column 'user_commnet.articleId' in 'where clause'","time":"2018-07-23T07:41:00.355Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2401,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'articleId' in where clause is ambiguous","time":"2018-07-23T07:42:00.303Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2417,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'articleId' in where clause is ambiguous","time":"2018-07-23T07:44:45.140Z","v":0}
