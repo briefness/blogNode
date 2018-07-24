@@ -1,20 +1,13 @@
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1030,"level":50,"msg":"data is not defined","time":"2018-07-23T02:32:12.606Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1030,"level":50,"msg":"data is not defined","time":"2018-07-23T02:32:18.137Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1215,"level":50,"msg":"data is not defined","time":"2018-07-23T03:22:45.060Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1215,"level":50,"msg":"data is not defined","time":"2018-07-23T03:34:29.375Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1370,"level":50,"msg":"data is not defined","time":"2018-07-23T03:35:10.738Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T05:50:44.324Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T06:22:14.272Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":1816,"level":50,"msg":"data is not defined","time":"2018-07-23T06:22:58.880Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2002,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:28:14.298Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2015,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:29:11.611Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2015,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'username' in where clause is ambiguous","time":"2018-07-23T06:29:21.850Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2024,"level":50,"msg":"data is not defined","time":"2018-07-23T06:31:34.396Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2327,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:32:39.133Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2327,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:34:32.337Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:36:30.765Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:36:44.086Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2354,"level":50,"msg":"ER_NO_SUCH_TABLE: Table 'blog.user_commnet' doesn't exist","time":"2018-07-23T07:40:01.301Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2387,"level":50,"msg":"ER_BAD_FIELD_ERROR: Unknown column 'user_commnet.articleId' in 'where clause'","time":"2018-07-23T07:41:00.355Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2401,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'articleId' in where clause is ambiguous","time":"2018-07-23T07:42:00.303Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":2417,"level":50,"msg":"ER_NON_UNIQ_ERROR: Column 'articleId' in where clause is ambiguous","time":"2018-07-23T07:44:45.140Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6257,"level":50,"msg":"data is not defined","time":"2018-07-24T03:03:29.633Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6257,"level":50,"msg":"data is not defined","time":"2018-07-24T03:03:32.070Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6257,"level":50,"msg":"Cannot read property 'content' of undefined","time":"2018-07-24T03:04:18.156Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6361,"level":50,"msg":"res is not defined","time":"2018-07-24T03:25:16.411Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6367,"level":50,"msg":"res is not defined","time":"2018-07-24T03:26:15.840Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6367,"level":50,"msg":"res is not defined","time":"2018-07-24T03:26:20.630Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6371,"level":50,"msg":"res is not defined","time":"2018-07-24T03:26:59.266Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6371,"level":50,"msg":"res is not defined","time":"2018-07-24T03:27:06.765Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6371,"level":50,"msg":"res is not defined","time":"2018-07-24T03:27:39.658Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":6415,"level":50,"msg":"req is not defined","time":"2018-07-24T03:33:28.190Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":7078,"level":50,"msg":"data is not defined","time":"2018-07-24T06:50:40.174Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":7078,"level":50,"msg":"data is not defined","time":"2018-07-24T06:56:09.239Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":7078,"level":50,"msg":"data is not defined","time":"2018-07-24T06:56:18.347Z","v":0}

@@ -18,7 +18,7 @@ export const getUserInfo = (userId) => http.post('/get_userInfo', {userId})
 /**
  * 获取博客列表(ADD:添加分页操作)
  */
-export const getBlogList = () => http.get('/get_blogList')
+export const getBlogList = (userId) => http.post('/get_blogList', {userId})
 
 /**
  * 搜索博客

@@ -117,10 +117,11 @@ export default {
         if (valid) {
           let password = MD5(this.userInfo.password).toString()
           let res = await resApi.accountLogin(this.userInfo.username, password)
-          if (res && res.data) {
+          if (res && res.data && !res.message) {
             window.sessionStorage.setItem('token', res.data.token)
             window.sessionStorage.setItem('userId', res.data.userId)
             window.sessionStorage.setItem('username', res.data.username)
+            window.sessionStorage.setItem('permissions', res.data.permissions)
             window.sessionStorage.setItem('avatar', res.data.avatar)
             this.$router.push('/blogList')
           } else {

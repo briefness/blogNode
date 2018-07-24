@@ -36,7 +36,7 @@
         </DropdownMenu>
       </Dropdown>
     </div>
-    <router-link to="/noteBooks" class="write-note">
+    <router-link v-if="permissions.indexOf('1') > -1" to="/noteBooks" class="write-note">
       写文章
     </router-link>
   </div>
@@ -49,6 +49,7 @@ export default {
   name: 'Header',
   data () {
     return {
+      permissions: [],
       isShowSearchInput: false,
       informationCount: 1,
       avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
@@ -65,6 +66,9 @@ export default {
       this.isLogin = true
       this.getIsBlogList()
       this.avatar = window.sessionStorage.getItem('avatar')
+      if (window.sessionStorage.getItem('permissions')) {
+        this.permissions = window.sessionStorage.getItem('permissions').split(',')
+      }
     } else {
       this.$router.push({'name': 'Login', 'params': {'isLogin': true}})
     }

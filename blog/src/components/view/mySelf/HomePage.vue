@@ -27,7 +27,7 @@
     <div class="outer-container">
       <Tabs :animated="false" class="outer-container-tab">
         <TabPane label="文章" icon="document-text">
-          <iPubishedBloglist></iPubishedBloglist>
+          <iPubishedBloglist :blogList="blogList"></iPubishedBloglist>
         </TabPane>
         <TabPane label="圈子" icon="disc">圈子</TabPane>
     </Tabs>
@@ -52,13 +52,26 @@ export default {
         fansCount: 0,
         words: 0,
         articleCount: 0
-      }
+      },
+      userId: '',
+      blogList: []
     }
   },
   mounted () {
+    this.userId = window.sessionStorage.getItem('userId')
     this.getUserInfo()
+    this.getBlogList()
   },
   methods: {
+    // 获取文章列表
+    async getBlogList () {
+      let res = await resApi.getBlogList(this.userId)
+      if (res && res.data) {
+        this.blogList = res.data
+      } else {
+        this.$Message.warning('暂无文章')
+      }
+    },
     async getUserInfo () {
       let userId = window.sessionStorage.getItem('userId')
       let res = await resApi.getUserInfo(userId)

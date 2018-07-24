@@ -2,17 +2,17 @@
   <div class="published-blog-list">
     <div class="blog-list" v-for="(blog, index) in blogList" :key="index">
       <div class="blog-list-content" :class="{ hasImg: blog.relatedImg , noImg: !blog.relatedImg }">
-        <router-link to="/blogDetail" class="blog-title">{{blog.publishTime}}</router-link>
+        <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}" class="blog-title">{{blog.publishTime}}</router-link>
         <p class="blog-content">
           {{blog.blogContent}}
         </p>
         <p class="meta">
-          <router-link to="/blogDetail"><Icon type="eye"></Icon>{{blog.pageView}}</router-link>
-          <router-link to="/blogDetail"><Icon type="chatbox"></Icon>{{blog.reply}}</router-link>
+          <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}"><Icon type="eye"></Icon>{{blog.pageView}}</router-link>
+          <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}"><Icon type="chatbox"></Icon>{{blog.reply}}</router-link>
           <Icon type="heart"></Icon>{{blog.like}}
         </p>
       </div>
-      <router-link to="/blogDetail">
+      <router-link :to="{'path': '/blogDetail', 'query': {'articleId': blog.articleId}}">
         <img v-lazy="blog.relatedImg" class="img-blur-done" />
       </router-link>
     </div>
@@ -22,26 +22,13 @@
 <script>
 export default {
   name: 'Footer',
+  props: {
+    blogList: {
+      default: 'blogList'
+    }
+  },
   data () {
     return {
-      blogList: [
-        {
-          publishTime: '2018.05.08 08:45',
-          blogContent: '限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示...',
-          relatedImg: 'http://upload-images.jianshu.io/upload_images/4810847-84c483151ca77460.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240',
-          pageView: 1000,
-          reply: 10000,
-          like: 10
-        },
-        {
-          publishTime: '2018.05.08 08:45',
-          blogContent: '限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示这里是文章的内容，限制显示字数，超出部分显示...',
-          relatedImg: '',
-          pageView: 1000,
-          reply: 10000,
-          like: 10
-        }
-      ]
     }
   },
   mounted () {},

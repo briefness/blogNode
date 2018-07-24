@@ -62,7 +62,13 @@ router.post('/loginVerify', function(req, res, next) {
     try {
       res.writeHead(200);
       if (results && results.length > 0) {
-        let data = { 'avatar': results[0].avatar, 'username': results[0].username, 'userId': results[0].userId, 'token': results[0].token};
+        let data = {
+          'avatar': results[0].avatar,
+          'username': results[0].username,
+          'userId': results[0].userId,
+          'token': results[0].token,
+          'permissions': results[0].permissions
+        };
         res.end(JSON.stringify({'data': data}));
       } else {
         res.end(JSON.stringify({'message': '账号或密码不正确'}));
@@ -108,52 +114,64 @@ router.post('/get_userInfo', function(req, res, next) {
   })
 });
 
+
+var getBlogList = function(err, results, fields, res, req) {
+  if (err) {
+    logger.error(err.message);
+    res.writeHead(404);
+    res.end(err.message);
+    return;
+  }
+  try {
+    res.writeHead(200);
+    if (results && results.length > 0) {
+      let blogList = [];
+      results.forEach((currentValue, index) => {
+        let data = {
+          'articleId': currentValue.articleId,
+          'publishTime': currentValue.release_time,
+          'blogTitle': currentValue.title,
+          'blogContent': currentValue.thumbnail_article,
+          'relatedImg': currentValue.related_img,
+          'pageView': currentValue.preview_count,
+          'reply': currentValue.commnet_count,
+          'like': currentValue.like_count
+        };
+        if (!req.body.userId) {
+          data.avatar = currentValue.avatar
+          data.userName = currentValue.userName
+        }
+        let content = currentValue.thumbnail_article.toString();
+        if (content.length > 116) {
+          data.blogContent = content.substring(0, 116) + '...';
+        }
+        blogList.push(data);
+      })
+      logger.info('博客列表：', blogList);
+      res.end(JSON.stringify({'data': blogList}));
+    } else {
+      logger.info('博客列表：', '当前并无文章');
+      res.end(JSON.stringify({'message': '当前并无文章'}));
+    }
+    logger.info('获取博客列表完成');
+  } catch (e) {
+    logger.error(e.message);
+    logger.info(e.message);
+    logger.info('获取博客列表失败');
+  }
+}
 // get blogList
-router.get('/get_blogList', function(req, res, next) {
+router.post('/get_blogList', function(req, res, next) {
   logger.info('开始获取博客列表');
-  query('select * from article, user where user.userId=article.userId', [], function(err, results, fields){
-    if (err) {
-      logger.error(err.message);
-      res.writeHead(404);
-      res.end(err.message);
-      return;
-    }
-    try {
-      res.writeHead(200);
-      if (results && results.length > 0) {
-        let blogList = [];
-        results.forEach((currentValue, index) => {
-          let data = {
-            'articleId': currentValue.articleId,
-            'avatar': currentValue.avatar,
-            'userName': currentValue.username,
-            'publishTime': currentValue.release_time,
-            'blogTitle': currentValue.title,
-            'blogContent': currentValue.thumbnail_article,
-            'relatedImg': currentValue.related_img,
-            'pageView': currentValue.preview_count,
-            'reply': currentValue.commnet_count,
-            'like': currentValue.like_count
-          };
-          let content = currentValue.thumbnail_article.toString();
-          if (content.length > 116) {
-            data.blogContent = content.substring(0, 116) + '...';
-          }
-          blogList.push(data);
-        })
-        logger.info('博客列表：', blogList);
-        res.end(JSON.stringify({'data': blogList}));
-      } else {
-        logger.info('博客列表：', '当前并无文章');
-        res.end(JSON.stringify({'message': '当前并无文章'}));
-      }
-      logger.info('获取博客列表完成');
-    } catch (e) {
-      logger.error(e.message);
-      logger.info(e.message);
-      logger.info('获取博客列表失败');
-    }
-  })
+  if (!req.body.userId) {
+    query('select * from article, userInfo where userInfo.userId=article.userId', [], function(err, results, fields) {
+      getBlogList(err, results, fields, res, req)
+    })
+  } else {
+    query('select * from article where userId=?', [req.body.userId], function(err, results, fields){
+      getBlogList(err, results, fields, res, req)
+    })
+  }
 });
 
 // publish blog
