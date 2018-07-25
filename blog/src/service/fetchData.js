@@ -28,12 +28,18 @@ export const searchBlog = (keywords) => http.post('/blog/search', {keywords})
 /**
  * 获取博客详情
  */
-export const getBlogInfo = (articleId) => http.post('/blog/blog_detail', {articleId})
+export const getBlogInfo = (articleId, userId) => http.post('/blog/blog_detail', {articleId, userId})
 
 /**
  * 获取博客评论列表
  */
 export const getBlogCommentList = (articleId) => http.post('/blog/blog_comment', {articleId})
+
+/**
+ * 博客点赞
+ */
+export const blogLike = (articleId, userId, state) =>
+  http.post('/blog/blog_like', {articleId, userId, state})
 
 /**
  * 发表评论

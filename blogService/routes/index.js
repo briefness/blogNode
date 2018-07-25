@@ -271,9 +271,9 @@ router.post('/blog/blog_detail', function(req, res, next) {
       return;
     }
     try {
-      res.writeHead(200);
+      let data = {};
       if (results) {
-        let data = {
+        data = {
           'blogContentHtml': results[0].content,
           'title': results[0].title,
           'userName': results[0].username,
@@ -282,9 +282,29 @@ router.post('/blog/blog_detail', function(req, res, next) {
           'avatar': results[0].avatar,
           'likes': results[0].like_count
         };
-        logger.info('博客详情信息：', data);
-        res.end(JSON.stringify({'data': data}));
       }
+      query('select state from likeArticle where articleId=? and userId=?', [req.body.articleId, req.body.userId], function(err, results, fields){
+        if (err) {
+          logger.error(err.message);
+          res.writeHead(404);
+          res.end(err.message);
+          return;
+        }
+        try {
+          res.writeHead(200);
+          if (results && results.length > 0) {
+            data.state = results[0].state;
+          } else {
+            data.state = 0;
+          }
+          logger.info('博客详情信息：', data);
+          res.end(JSON.stringify({'data': data}));
+        } catch (e) {
+          logger.error(e.message);
+          logger.info(e.message);
+          logger.info('获取博客详情失败');
+        }
+      })
       logger.info('获取博客详情完成');
     } catch (e) {
       logger.error(e.message);
@@ -355,6 +375,53 @@ router.post('/blog/blog_comment', function(req, res, next) {
       logger.error(e.message);
       logger.info(e.message);
       logger.info('获取博客评论失败');
+    }
+  })
+});
+
+// blog like
+var likeBlog = function(err, results, fields, res) {
+  if (err) {
+    logger.error(err.message);
+    res.writeHead(404);
+    res.end(err.message);
+    return;
+  }
+  try {
+    res.writeHead(200);
+    if (results) {
+      logger.info('博客点赞信息：', results);
+      res.end(JSON.stringify({'message': '点赞成功'}));
+    }
+    logger.info('获取博客点赞完成');
+  } catch (e) {
+    logger.error(e.message);
+    logger.info(e.message);
+    logger.info('获取博客点赞失败');
+  }
+};
+
+router.post('/blog/blog_like', function(req, res, next) {
+  logger.info('开始博客点赞');
+  query('select state from likeArticle where articleId=? and userId=?', [req.body.articleId, req.body.userId], function(err, results, fields){
+    if (results && results.length > 0) {
+      let updateData = [req.body.state, req.body.articleId, req.body.userId];
+      let updateLikeCountSql = 'update article set like_count=like_count+1 where articleId=?';
+      if (!req.body.state) {
+        updateLikeCountSql = 'update article set like_count=like_count-1 where articleId=?';
+      }
+      query('update likeArticle set state=? where articleId=? and userId=?', updateData, function(){
+        query(updateLikeCountSql, [req.body.articleId], function(err, results, fields){
+          likeBlog(err, results, fields, res);
+        })
+      })
+    } else {
+      let insertData = [req.body.articleId, req.body.userId, req.body.state];
+      query('INSERT INTO likeArticle(articleId,userId,state) VALUES(?,?,?)', insertData, function(){
+        query('update article set like_count=like_count+1 where articleId=?', [req.body.articleId], function(err, results, fields){
+          likeBlog(err, results, fields, res);
+        })
+      })
     }
   })
 });

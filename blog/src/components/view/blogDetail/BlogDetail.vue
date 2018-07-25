@@ -79,15 +79,15 @@ export default {
     }
   },
   mounted () {
-    this.articleId = this.$route.query.articleId
-    this.authorInfo.userId = window.sessionStorage.getItem('userId')
+    this.articleId = parseInt(this.$route.query.articleId)
+    this.authorInfo.userId = parseInt(window.sessionStorage.getItem('userId'))
     this.getDetailBlog()
     this.getBlogCommentList()
   },
   methods: {
     // 获取博客详情信息
     async getDetailBlog () {
-      let res = await resApi.getBlogInfo(this.articleId)
+      let res = await resApi.getBlogInfo(this.articleId, this.authorInfo.userId)
       if (res) {
         this.blogContentHtml = res.data.blogContentHtml
         this.meta.title = res.data.title
@@ -96,6 +96,7 @@ export default {
         this.authorInfo.avatar = res.data.avatar
         this.authorInfo.name = res.data.userName
         this.authorInfo.sex = res.data.sex
+        this.isLike = !res.data.state
       }
     },
     // 获取博客评论列表
@@ -108,8 +109,15 @@ export default {
     // 支持作者
     // supportAuthor () {},
     // 喜欢这篇文章
-    likeThisArticle () {
-      this.isLike = !this.isLike
+    async likeThisArticle () {
+      let state = 0
+      if (this.isLike) {
+        state = 1
+      }
+      let res = await resApi.blogLike(this.articleId, this.authorInfo.userId, state)
+      if (res) {
+        this.getDetailBlog()
+      }
     },
     // 加入圈子，相当于加关注
     addCircle () {
