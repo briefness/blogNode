@@ -346,6 +346,7 @@ router.post('/blog/publish_comment', function(req, res, next) {
 router.post('/blog/blog_comment', function(req, res, next) {
   logger.info('开始获取博客评论');
   query('select * from userInfo, userComment where userInfo.userId=userComment.criticsId and articleId=?', [req.body.articleId], function(err, results, fields){
+
     if (err) {
       logger.error(err.message);
       res.writeHead(404);
@@ -353,23 +354,48 @@ router.post('/blog/blog_comment', function(req, res, next) {
       return;
     }
     try {
-      res.writeHead(200);
+      let data = {};
+      let commentList = [];
       if (results) {
-        let commentList = [];
         results.forEach((currentValue, index) => {
-          let data = {
+          data = {
             'commentId': currentValue.commentId,
             'comment': currentValue.comment_content,
             'userName': currentValue.username,
             'publishTime': currentValue.comment_time,
             'avatar': currentValue.avatar,
-            'likes': currentValue.comment_likes
+            'likes': currentValue.comment_likes,
+            'isLike': true
           };
           commentList.unshift(data);
         })
-        logger.info('博客评论信息：', commentList);
-        res.end(JSON.stringify({'data': commentList}));
       }
+      query('select * from likeComment where userId=?', [req.body.userId], function(err, results, fields){
+        if (err) {
+          logger.error(err.message);
+          res.writeHead(404);
+          res.end(err.message);
+          return;
+        }
+        try {
+          res.writeHead(200);
+          if (results && results.length > 0) {
+            commentList.forEach((com, index) => {
+              results.forEach((likeC) => {
+                if (likeC.commentId === com.commentId) {
+                  com.isLike = !likeC.state;
+                }
+              })
+            })
+          }
+          logger.info('博客评论信息：', commentList);
+          res.end(JSON.stringify({'data': commentList}));
+        } catch (e) {
+          logger.error(e.message);
+          logger.info(e.message);
+          logger.info('获取博客评论失败');
+        }
+      })
       logger.info('获取博客评论完成');
     } catch (e) {
       logger.error(e.message);
@@ -420,6 +446,53 @@ router.post('/blog/blog_like', function(req, res, next) {
       query('INSERT INTO likeArticle(articleId,userId,state) VALUES(?,?,?)', insertData, function(){
         query('update article set like_count=like_count+1 where articleId=?', [req.body.articleId], function(err, results, fields){
           likeBlog(err, results, fields, res);
+        })
+      })
+    }
+  })
+});
+
+// comment like
+var likeComment = function(err, results, fields, res) {
+  if (err) {
+    logger.error(err.message);
+    res.writeHead(404);
+    res.end(err.message);
+    return;
+  }
+  try {
+    res.writeHead(200);
+    if (results) {
+      logger.info('评论点赞信息：', results);
+      res.end(JSON.stringify({'message': '点赞成功'}));
+    }
+    logger.info('获取评论点赞完成');
+  } catch (e) {
+    logger.error(e.message);
+    logger.info(e.message);
+    logger.info('获取评论点赞失败');
+  }
+};
+
+router.post('/blog/comment_like', function(req, res, next) {
+  logger.info('开始评论点赞');
+  query('select state from likeComment where commentId=? and userId=?', [req.body.commentId, req.body.userId], function(err, results, fields){
+    if (results && results.length > 0) {
+      let updateData = [req.body.state, req.body.commentId, req.body.userId];
+      let updateCommentCountSql = 'update userComment set comment_likes=comment_likes+1 where commentId=?';
+      if (!req.body.state) {
+        updateCommentCountSql = 'update userComment set comment_likes=comment_likes-1 where commentId=?';
+      }
+      query('update likeComment set state=? where commentId=? and userId=?', updateData, function(){
+        query(updateCommentCountSql, [req.body.commentId], function(err, results, fields){
+          likeComment(err, results, fields, res);
+        })
+      })
+    } else {
+      let insertData = [req.body.commentId, req.body.userId, req.body.state];
+      query('INSERT INTO likeComment(commentId,userId,state) VALUES(?,?,?)', insertData, function(){
+        query('update userComment set comment_likes=comment_likes+1 where commentId=?', [req.body.commentId], function(err, results, fields){
+          likeComment(err, results, fields, res);
         })
       })
     }

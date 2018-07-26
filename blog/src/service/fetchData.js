@@ -33,13 +33,20 @@ export const getBlogInfo = (articleId, userId) => http.post('/blog/blog_detail',
 /**
  * 获取博客评论列表
  */
-export const getBlogCommentList = (articleId) => http.post('/blog/blog_comment', {articleId})
+export const getBlogCommentList = (articleId, userId) =>
+  http.post('/blog/blog_comment', {articleId, userId})
 
 /**
  * 博客点赞
  */
 export const blogLike = (articleId, userId, state) =>
   http.post('/blog/blog_like', {articleId, userId, state})
+
+/**
+ * 博客点赞
+ */
+export const commentLike = (commentId, userId, state) =>
+  http.post('/blog/comment_like', {commentId, userId, state})
 
 /**
  * 发表评论

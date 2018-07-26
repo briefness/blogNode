@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 25/07/2018 17:03:23
+ Date: 26/07/2018 11:30:57
 */
 
 SET NAMES utf8mb4;
@@ -58,7 +58,7 @@ CREATE TABLE `likeArticle` (
   `userId` int(10) NOT NULL,
   `state` int(2) NOT NULL,
   PRIMARY KEY (`likeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of likeArticle
@@ -69,6 +69,28 @@ INSERT INTO `likeArticle` VALUES (2, 17, 2, 1);
 INSERT INTO `likeArticle` VALUES (10, 20, 2, 0);
 INSERT INTO `likeArticle` VALUES (11, 14, 2, 0);
 INSERT INTO `likeArticle` VALUES (12, 15, 2, 1);
+INSERT INTO `likeArticle` VALUES (13, 22, 2, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for likeComment
+-- ----------------------------
+DROP TABLE IF EXISTS `likeComment`;
+CREATE TABLE `likeComment` (
+  `cLikeId` int(10) NOT NULL AUTO_INCREMENT,
+  `commentId` int(10) NOT NULL,
+  `userId` int(10) NOT NULL,
+  `state` int(2) NOT NULL,
+  PRIMARY KEY (`cLikeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of likeComment
+-- ----------------------------
+BEGIN;
+INSERT INTO `likeComment` VALUES (1, 9, 2, 1);
+INSERT INTO `likeComment` VALUES (2, 10, 2, 0);
+INSERT INTO `likeComment` VALUES (3, 9, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -105,7 +127,7 @@ CREATE TABLE `userComment` (
   `comment_time` varchar(255) NOT NULL,
   `comment_likes` int(10) DEFAULT NULL,
   PRIMARY KEY (`commentId`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of userComment
@@ -118,7 +140,8 @@ INSERT INTO `userComment` VALUES (4, 14, 2, '不管，继续测试', '2018.07.23
 INSERT INTO `userComment` VALUES (5, 14, 2, '估计是最后一次测试了', '2018.07.23 16:28', 0);
 INSERT INTO `userComment` VALUES (7, 14, 2, '女方家人\n俄方烦恼如风', '2018.07.23 17:32', 0);
 INSERT INTO `userComment` VALUES (8, 20, 2, '沙发', '2018.07.24 11:34', 0);
-INSERT INTO `userComment` VALUES (9, 15, 2, '沙发', '2018.07.25 16:59', 0);
+INSERT INTO `userComment` VALUES (9, 15, 2, '沙发', '2018.07.25 16:59', 2);
+INSERT INTO `userComment` VALUES (10, 15, 2, '测试点赞', '2018.07.26 11:22', 0);
 COMMIT;
 
 -- ----------------------------

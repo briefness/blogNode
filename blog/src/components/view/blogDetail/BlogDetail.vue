@@ -39,7 +39,7 @@
       </div>
     </div>
     <CommentInput :articleId="articleId" :authorInfo="authorInfo" @getBlogCommentList="getBlogCommentList"></CommentInput>
-    <CommentList :commentList="commentList"></CommentList>
+    <CommentList :commentList="commentList" @likeThisComment="likeThisComment"></CommentList>
   </div>
 </template>
 
@@ -74,6 +74,7 @@ export default {
         likesCount: 1000,
         likes: 419
       },
+      // 评论
       commentList: [],
       blogContentHtml: '<p>我都是金佛山的附件soID金佛山的</p><img src="//upload-images.jianshu.io/upload_images/9215795-4a96efa0165df0bc.jpg" />'
     }
@@ -101,7 +102,7 @@ export default {
     },
     // 获取博客评论列表
     async getBlogCommentList () {
-      let res = await resApi.getBlogCommentList(this.articleId)
+      let res = await resApi.getBlogCommentList(this.articleId, this.authorInfo.userId)
       if (res && res.data.length > 0) {
         this.commentList = res.data
       }
@@ -117,6 +118,18 @@ export default {
       let res = await resApi.blogLike(this.articleId, this.authorInfo.userId, state)
       if (res) {
         this.getDetailBlog()
+      }
+    },
+    // 喜欢这个评论
+    async likeThisComment (commentId, isLike) {
+      let state = 0
+      if (isLike) {
+        state = 1
+      }
+      console.log(state)
+      let res = await resApi.commentLike(commentId, this.authorInfo.userId, state)
+      if (res) {
+        this.getBlogCommentList()
       }
     },
     // 加入圈子，相当于加关注

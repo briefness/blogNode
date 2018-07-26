@@ -25,9 +25,9 @@
       <div class="comment-wrap">
         <p>{{comment.comment}}</p>
         <div class="tool-group">
-          <a :class="{'like-button' : isLike, 'like-button liked': !isLike}" @click="likeComment">
-            <Icon type="ios-lightbulb-outline" v-if="isLike" class="afflatus"></Icon>
-            <Icon type="ios-lightbulb" v-if="!isLike" class="afflatus my-afflatus"></Icon>
+          <a :class="{'like-button' : comment.isLike, 'like-button liked': !comment.isLike}" @click="likeComment(comment.commentId, comment.isLike)">
+            <Icon type="ios-lightbulb-outline" v-if="comment.isLike" class="afflatus"></Icon>
+            <Icon type="ios-lightbulb" v-if="!comment.isLike" class="afflatus my-afflatus"></Icon>
             <span>{{comment.likes}}人赞</span>
           </a>
         </div>
@@ -43,11 +43,16 @@ export default {
   props: {
     commentList: {
       default: 'commentList'
+    },
+    likeThisComment: {
+      default: 'likeThisComment'
+    },
+    isCommentLike: {
+      default: 'isCommentLike'
     }
   },
   data () {
     return {
-      isLike: true,
       commentCount: 63,
       authorInfo: {
         avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
@@ -70,8 +75,10 @@ export default {
     // 按时间倒序
     timeInverted () {},
     // 评论点赞
-    likeComment () {
-      this.isLike = !this.isLike
+    likeComment (commentId, isLike) {
+      console.log(this.commentList)
+      console.log(isLike)
+      this.$emit('likeThisComment', commentId, isLike)
     }
   }
 }
