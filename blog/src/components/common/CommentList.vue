@@ -76,8 +76,6 @@ export default {
     timeInverted () {},
     // 评论点赞
     likeComment (commentId, isLike) {
-      console.log(this.commentList)
-      console.log(isLike)
       this.$emit('likeThisComment', commentId, isLike)
     }
   }

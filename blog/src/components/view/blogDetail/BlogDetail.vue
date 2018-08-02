@@ -126,7 +126,6 @@ export default {
       if (isLike) {
         state = 1
       }
-      console.log(state)
       let res = await resApi.commentLike(commentId, this.authorInfo.userId, state)
       if (res) {
         this.getBlogCommentList()

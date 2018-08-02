@@ -1,8 +1,8 @@
 <template>
   <div class="header">
     <span class="header-title">圈子</span>
-    <Menu mode="horizontal" :active-name="activeMenu === '//' ? '/blogList/' : activeMenu" @on-select="selectMenu">
-        <MenuItem name="/blogList/">
+    <Menu mode="horizontal" :active-name="activeMenu === '//' ? '/blogList' : activeMenu" @on-select="selectMenu">
+        <MenuItem name="/blogList">
             <Icon type="ios-paper"></Icon>
             首页
         </MenuItem>
@@ -55,7 +55,7 @@ export default {
       avatar: 'https://i.loli.net/2017/08/21/599a521472424.jpg',
       isLogin: false,
       headerSearch: '',
-      activeMenu: '/' + utils_.getRouteName(this.$route.path, 1) + '/' + utils_.getRouteName(this.$route.path, 2)
+      activeMenu: ''
     }
   },
   watch: {
@@ -65,6 +65,7 @@ export default {
     if (window.sessionStorage.getItem('token')) {
       this.isLogin = true
       this.getIsBlogList()
+      this.getActiveMenu()
       this.avatar = window.sessionStorage.getItem('avatar')
       if (window.sessionStorage.getItem('permissions')) {
         this.permissions = window.sessionStorage.getItem('permissions').split(',')
@@ -77,9 +78,18 @@ export default {
     ...mapActions({
       getBlogListAction: 'searchBlog'
     }),
+    // 获取当前激活的菜单
+    getActiveMenu () {
+      this.activeMenu = '/' + utils_.getRouteName(this.$route.path, 1)
+      if (utils_.getRouteName(this.$route.path, 2)) {
+        this.activeMenu += '/' + utils_.getRouteName(this.$route.path, 2)
+      }
+    },
     getIsBlogList () {
+      this.getActiveMenu()
       if (this.$route.path === '/blogList' || this.$route.path === '/blogList/') {
         this.isShowSearchInput = true
+        this.activeMenu = '/blogList'
       } else {
         this.isShowSearchInput = false
       }

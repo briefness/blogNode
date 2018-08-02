@@ -1,31 +1,3 @@
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12051,"level":50,"msg":"data is not defined","time":"2018-07-25T07:30:16.628Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:47.729Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:55.911Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:57.024Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:57.475Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:57.709Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:57.873Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12106,"level":50,"msg":"commentList is not defined","time":"2018-07-25T07:32:58.500Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:08.439Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:11.303Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:11.881Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:12.070Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:12.246Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12202,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:04:12.441Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12255,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:05:52.837Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12272,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:07:48.977Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12422,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:42:52.003Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12438,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:44:38.922Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12446,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:45:30.394Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12454,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:46:22.962Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12465,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:47:06.329Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12469,"level":50,"msg":"Cannot read property 'writeHead' of undefined","time":"2018-07-25T08:47:24.790Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:48:40.911Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:49:28.465Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:50:32.290Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:51:55.198Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:53:19.189Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:54:18.100Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12474,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:54:44.314Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12514,"level":50,"msg":"Cannot read property 'state' of undefined","time":"2018-07-25T08:56:48.189Z","v":0}
-{"name":"website name","hostname":"morydeMacBook-Air.local","pid":12636,"level":50,"msg":"data is not defined","time":"2018-07-25T09:11:10.311Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":16084,"level":50,"msg":"data is not defined","time":"2018-07-26T02:43:15.670Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":16297,"level":50,"msg":"data is not defined","time":"2018-07-26T03:29:25.148Z","v":0}
+{"name":"website name","hostname":"morydeMacBook-Air.local","pid":16297,"level":50,"msg":"data is not defined","time":"2018-07-26T03:29:54.135Z","v":0}
