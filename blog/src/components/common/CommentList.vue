@@ -69,11 +69,17 @@ export default {
   mounted () {},
   methods: {
     // 只看作者
-    justLookAuthor () {},
+    justLookAuthor () {
+      this.$Message.info('暂不提供此功能')
+    },
     // 按时间正序
-    timeSequence () {},
+    timeSequence () {
+      this.$Message.info('暂不提供此功能')
+    },
     // 按时间倒序
-    timeInverted () {},
+    timeInverted () {
+      this.$Message.info('暂不提供此功能')
+    },
     // 评论点赞
     likeComment (commentId, isLike) {
       this.$emit('likeThisComment', commentId, isLike)
