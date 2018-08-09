@@ -18,7 +18,9 @@ sql：数据库文件
 > 登陆
 
 账号：mory
+
 密码：123456
+
 此账号没有发布博客权限
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
