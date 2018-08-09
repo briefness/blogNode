@@ -72,8 +72,7 @@ export default {
       data: JSON.stringify(data),
       timeout: 10000,
       headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json; charset=UTF-8'
       }
     }).then(
       (response) => {

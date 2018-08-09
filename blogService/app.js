@@ -24,8 +24,8 @@ app.all('*', function(req, res, next) {
 
 app.use(cors());
 
-// app.listen(port);
-app.listen(7777);
+app.listen(port);
+// app.listen(7777);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
