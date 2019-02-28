@@ -4,7 +4,7 @@
 
 数据服务使用Node.js
 
-数据库使用的mysql(安装mysql，使用弱密码的安装方式)
+数据库使用的mysql(安装mysql，使用弱密码的安装方式，gbk2312)
 
 > mory
 
